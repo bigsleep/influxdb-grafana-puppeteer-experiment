@@ -6,6 +6,9 @@ services:
     image: grafana/grafana:5.2.4
     ports:
       - "3000:3000"
+    volumes:
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
     depends_on:
       - influxdb
   puppeteer:
