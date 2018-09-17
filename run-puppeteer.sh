@@ -5,10 +5,12 @@ if [ $# -ne 3 ]; then
     exit
 fi
 
-input_data="$1"
+input_path="$1"
 url="$2"
 output_file="$3"
 
-curl -i -XPOST http://influxdb:8086/query --data-urlencode 'q=CREATE DATABASE db' &&
-    curl -i -XPOST 'http://influxdb:8086/write?db=db' --data-urlencode "$input_data" &&
-    node save_pdf.js "$url" "/output/$output_file"
+sleep 10
+
+curl -i -XPOST 'http://influxdb:8086/query' --data-urlencode 'q=CREATE DATABASE db'
+curl -i -XPOST 'http://influxdb:8086/write?db=db&precision=s' --data-binary "@${input_path}"
+node save_pdf.js "$url" "/volume/$output_file"

@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 const url = process.argv[2];
 const output_path = process.argv[3];
 const width = 1920;
-const heiht = 1080;
+const height = 1080;
 
 (async() => {
     const browser = await puppeteer.launch({
@@ -22,7 +22,7 @@ const heiht = 1080;
         isMobile: false
     });
 
-    await page.goto(url, {waitUntil: 'networkidle0'});
+    await page.goto(url, {waitUntil: 'networkidle2'});
 
     await page.pdf({
         path: output_path,

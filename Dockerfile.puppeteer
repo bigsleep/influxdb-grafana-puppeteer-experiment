@@ -21,13 +21,3 @@ WORKDIR /app
 
 ADD save_pdf.js /app/save_pdf.js
 ADD run-puppeteer.sh /app/run-puppeteer.sh
-
-# Add user so we don't need --no-sandbox.
-RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
-    && mkdir -p /home/pptruser/Downloads \
-    && mkdir -p /output \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app \
-    && chown -R pptruser:pptruser /output
-
-USER pptruser
