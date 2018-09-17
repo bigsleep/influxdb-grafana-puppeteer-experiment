@@ -17,7 +17,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.puppeteer
-    volumes:
-      - ./output:/app
+    entrypoint:
+      - ./run-puppeteer.sh
     depends_on:
       - grafana

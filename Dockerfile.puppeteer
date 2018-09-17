@@ -5,6 +5,7 @@ RUN apk update && apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
     apk add --no-cache \
+      curl@edge \
       chromium@edge \
       nss@edge \
       freetype@edge \
@@ -18,10 +19,15 @@ RUN yarn add puppeteer@1.4.0
 
 WORKDIR /app
 
+ADD save_pdf.js /app/save_pdf.js
+ADD run-puppeteer.sh /app/run-puppeteer.sh
+
 # Add user so we don't need --no-sandbox.
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /home/pptruser/Downloads \
+    && mkdir -p /output \
     && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /app
+    && chown -R pptruser:pptruser /app \
+    && chown -R pptruser:pptruser /output
 
 USER pptruser
