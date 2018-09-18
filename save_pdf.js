@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 const url = process.argv[2];
 const output_path = process.argv[3];
-const width = 1920;
-const height = 1080;
+const width = 1080;
+const height = 1920;
 
 (async() => {
     const browser = await puppeteer.launch({
